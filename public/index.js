@@ -1,6 +1,17 @@
 let transactions = [];
 let myChart;
 
+//the following check to see if our browser has serviceworker enabled and
+//if it does then it will register our service-worker.js file and then return
+//a promise. When the promise resolves we log the message to our console. 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("service-worker.js").then(reg => {
+      console.log("We found your service worker file!", reg);
+    });
+  });
+}
+
 fetch("/api/transaction")
   .then(response => {
     return response.json();
