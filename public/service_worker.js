@@ -53,13 +53,13 @@ self.addEventListener("activate", function(evt) {
 self.addEventListener("fetch", function(evt) {
     // cache successful requests to the API
     if (evt.request.url.includes("/api/")) {
-    console.log(evt.request.url);
       evt.respondWith(
         caches.open(DATA_CACHE_NAME).then(cache => {
+            console.log('cach is open')
           return fetch(evt.request)
             .then(response => {
+                console.log('response is good')
               // If the response was good, clone it and store it in the cache.
-              console.log(response.status);
               if (response.status === 200) {
                 console.log('adding to cache')
                 cache.put(evt.request.url, response.clone());
